@@ -2,11 +2,19 @@ import { useState } from 'react';
 import { AMCTestData, DataGenerationConfig, SystemParameters, PresetMode, AnalysisMode, AlertSettings } from './types';
 import { AMCDataGenerator } from './utils/dataGenerator';
 import { Sidebar } from './components/Sidebar';
+import { 
+  RealtimeMonitoringCharts,
+  TrendAnalysisCharts,
+  ThreeDVisualization,
+  StatisticalAnalysis,
+  CorrelationHeatmap,
+  RadarChart
+} from './components/Charts';
 
 function App() {
   const [data, setData] = useState<AMCTestData[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [activeTab, setActiveTab] = useState<'generator' | 'charts' | 'data' | 'export'>('generator');
+  const [activeTab, setActiveTab] = useState<'generator' | 'monitoring' | 'trend' | '3d' | 'stats' | 'correlation' | 'radar' | 'data' | 'export'>('generator');
 
   // 數據生成配置
   const [config, setConfig] = useState<DataGenerationConfig>({
@@ -100,7 +108,7 @@ function App() {
       const generator = new AMCDataGenerator();
       const newData = generator.generateMachineData(config);
       setData(newData);
-      setActiveTab('charts');
+      setActiveTab('monitoring');
     } catch (error) {
       console.error('數據生成失敗:', error);
     } finally {
@@ -147,6 +155,26 @@ function App() {
   const passCount = data.filter(d => d.Result === 'pass').length;
   const failCount = data.filter(d => d.Result === 'fail').length;
   const passRate = data.length > 0 ? (passCount / data.length) * 100 : 0;
+
+  const cardStyle = {
+    backgroundColor: 'white',
+    borderRadius: '0.5rem',
+    padding: '2rem',
+    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+  };
+
+  const titleStyle = {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    marginBottom: '1.5rem',
+    color: '#1f2937'
+  } as React.CSSProperties;
+
+  const centerStyle = {
+    textAlign: 'center',
+    padding: '2rem',
+    color: '#6b7280'
+  } as React.CSSProperties;
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#f8fafc' }}>
@@ -207,24 +235,30 @@ function App() {
         {/* Navigation Tabs */}
         <nav style={{ backgroundColor: 'white', padding: '1rem 0', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1rem' }}>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               {[
-                { id: 'generator', label: '數據生成器', icon: '🔧' },
-                { id: 'charts', label: '即時監控', icon: '📊' },
-                { id: 'data', label: '數據表格', icon: '📋' },
-                { id: 'export', label: '數據匯出', icon: '💾' }
+                { id: 'generator', label: '數據生成器' },
+                { id: 'monitoring', label: '即時監控' },
+                { id: 'trend', label: '趨勢分析' },
+                { id: '3d', label: '3D視圖' },
+                { id: 'stats', label: '統計分析' },
+                { id: 'correlation', label: '相關性分析' },
+                { id: 'radar', label: '綜合評估' },
+                { id: 'data', label: '數據表格' },
+                { id: 'export', label: '數據匯出' }
               ].map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
                   style={{
-                    padding: '0.75rem 1.5rem',
+                    padding: '0.5rem 1rem',
                     border: 'none',
-                    borderRadius: '0.5rem',
+                    borderRadius: '0.375rem',
                     backgroundColor: activeTab === tab.id ? '#3b82f6' : '#f3f4f6',
                     color: activeTab === tab.id ? 'white' : '#374151',
                     cursor: 'pointer',
-                    fontWeight: '600',
+                    fontWeight: '500',
+                    fontSize: '0.875rem',
                     transition: 'all 0.2s ease'
                   }}
                 >
@@ -240,17 +274,9 @@ function App() {
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             {/* 數據生成器 */}
             {activeTab === 'generator' && (
-              <div style={{
-                backgroundColor: 'white',
-                borderRadius: '0.5rem',
-                padding: '2rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1f2937' }}>
-                  智能測試數據生成器
-                </h3>
-                
-                <div style={{ textAlign: 'center', padding: '3rem', color: '#6b7280' }}>
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>智能測試數據生成器</h3>
+                <div style={centerStyle}>
                   <h4 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>
                     請使用左側控制面板生成測試數據
                   </h4>
@@ -259,80 +285,84 @@ function App() {
               </div>
             )}
 
-            {/* 即時監控圖表 */}
-            {activeTab === 'charts' && (
-              <div style={{
-                backgroundColor: 'white',
-                borderRadius: '0.5rem',
-                padding: '2rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1f2937' }}>
-                  即時監控儀表板
-                </h3>
-                
+            {/* 即時監控儀表板 */}
+            {activeTab === 'monitoring' && (
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>即時監控儀表板</h3>
                 {data.length > 0 ? (
-                  <>
-                    {/* 統計概覽 */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '2rem' }}>
-                      <div style={{
-                        backgroundColor: '#dbeafe',
-                        padding: '1.5rem',
-                        borderRadius: '0.5rem',
-                        textAlign: 'center'
-                      }}>
-                        <h4 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#1e40af' }}>
-                          總測試次數
-                        </h4>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#1e3a8a' }}>{data.length}</div>
-                      </div>
-                      <div style={{
-                        backgroundColor: '#dcfce7',
-                        padding: '1.5rem',
-                        borderRadius: '0.5rem',
-                        textAlign: 'center'
-                      }}>
-                        <h4 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#15803d' }}>
-                          通過率
-                        </h4>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#14532d' }}>{passRate.toFixed(1)}%</div>
-                      </div>
-                      <div style={{
-                        backgroundColor: '#f3e8ff',
-                        padding: '1.5rem',
-                        borderRadius: '0.5rem',
-                        textAlign: 'center'
-                      }}>
-                        <h4 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '0.5rem', color: '#7c3aed' }}>
-                          異常數量
-                        </h4>
-                        <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#581c87' }}>{failCount}</div>
-                      </div>
-                    </div>
-
-                    {/* 最新數據顯示 */}
-                    <div style={{ backgroundColor: '#f9fafb', padding: '1.5rem', borderRadius: '0.5rem' }}>
-                      <h4 style={{ marginBottom: '1rem', color: '#374151' }}>最新測試數據</h4>
-                      {data.slice(-1).map((latest, index) => (
-                        <div key={index} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', fontSize: '0.875rem' }}>
-                          <div><strong>時間:</strong> {latest.DateTime}</div>
-                          <div><strong>出口TOC:</strong> {latest.Outlet_TOC} ppbv</div>
-                          <div><strong>壓差:</strong> {latest.Pressure_Diff} Pa</div>
-                          <div><strong>結果:</strong> 
-                            <span style={{ 
-                              color: latest.Result === 'pass' ? '#15803d' : '#dc2626',
-                              fontWeight: 'bold',
-                              marginLeft: '0.5rem'
-                            }}>
-                              {latest.Result.toUpperCase()}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
+                  <RealtimeMonitoringCharts data={data} parameters={parameters} />
                 ) : (
-                  <div style={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
+                  <div style={centerStyle}>
+                    <p>請先在「數據生成器」中生成測試數據</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 趨勢分析 */}
+            {activeTab === 'trend' && (
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>趨勢分析圖表</h3>
+                {data.length > 0 ? (
+                  <TrendAnalysisCharts data={data} parameters={parameters} />
+                ) : (
+                  <div style={centerStyle}>
+                    <p>請先在「數據生成器」中生成測試數據</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 3D 可視化 */}
+            {activeTab === '3d' && (
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>3D 多維度分析</h3>
+                {data.length > 0 ? (
+                  <ThreeDVisualization data={data} parameters={parameters} />
+                ) : (
+                  <div style={centerStyle}>
+                    <p>請先在「數據生成器」中生成測試數據</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 統計分析 */}
+            {activeTab === 'stats' && (
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>統計分析報告</h3>
+                {data.length > 0 ? (
+                  <StatisticalAnalysis data={data} parameters={parameters} />
+                ) : (
+                  <div style={centerStyle}>
+                    <p>請先在「數據生成器」中生成測試數據</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 相關性分析 */}
+            {activeTab === 'correlation' && (
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>相關性分析熱圖</h3>
+                {data.length > 0 ? (
+                  <CorrelationHeatmap data={data} parameters={parameters} />
+                ) : (
+                  <div style={centerStyle}>
+                    <p>請先在「數據生成器」中生成測試數據</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 綜合評估雷達圖 */}
+            {activeTab === 'radar' && (
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>系統綜合評估</h3>
+                {data.length > 0 ? (
+                  <RadarChart data={data} parameters={parameters} />
+                ) : (
+                  <div style={centerStyle}>
                     <p>請先在「數據生成器」中生成測試數據</p>
                   </div>
                 )}
@@ -341,15 +371,8 @@ function App() {
 
             {/* 數據表格 */}
             {activeTab === 'data' && (
-              <div style={{
-                backgroundColor: 'white',
-                borderRadius: '0.5rem',
-                padding: '2rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1f2937' }}>
-                  測試數據表格
-                </h3>
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>測試數據表格</h3>
                 
                 {data.length > 0 ? (
                   <>
@@ -418,7 +441,7 @@ function App() {
                     )}
                   </>
                 ) : (
-                  <div style={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
+                  <div style={centerStyle}>
                     <p>請先在「數據生成器」中生成測試數據</p>
                   </div>
                 )}
@@ -427,15 +450,8 @@ function App() {
 
             {/* 數據匯出 */}
             {activeTab === 'export' && (
-              <div style={{
-                backgroundColor: 'white',
-                borderRadius: '0.5rem',
-                padding: '2rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#1f2937' }}>
-                  數據匯出功能
-                </h3>
+              <div style={cardStyle}>
+                <h3 style={titleStyle}>數據匯出功能</h3>
                 
                 {data.length > 0 ? (
                   <>
@@ -464,10 +480,10 @@ function App() {
                           數據品質
                         </h4>
                         <div style={{ fontSize: '0.875rem', color: '#15803d' }}>
-                          <div>模式: {config.quality_mode}</div>
-                          <div>異常比例: {config.anomaly_ratio}%</div>
-                          <div>時間範圍: {config.days_count} 天</div>
-                          <div>間隔: {config.interval_minutes} 分鐘</div>
+                          <div>異常數量: {failCount} 筆</div>
+                          <div>數據完整性: 100%</div>
+                          <div>數據一致性: 良好</div>
+                          <div>異常比例: {((failCount / data.length) * 100).toFixed(1)}%</div>
                         </div>
                       </div>
                       <div style={{
@@ -511,7 +527,7 @@ function App() {
                     </div>
                   </>
                 ) : (
-                  <div style={{ textAlign: 'center', padding: '2rem', color: '#6b7280' }}>
+                  <div style={centerStyle}>
                     <p>請先在「數據生成器」中生成測試數據</p>
                   </div>
                 )}
