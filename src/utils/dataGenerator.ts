@@ -1,4 +1,4 @@
-import { AMCTestData, DataGenerationConfig } from '../types';
+import type { AMCTestData, DataGenerationConfig } from '../types';
 
 /**
  * AMC 測試數據生成器

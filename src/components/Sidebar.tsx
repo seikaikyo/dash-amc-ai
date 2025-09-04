@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGenerationConfig, SystemParameters, PresetMode, AnalysisMode, AlertSettings } from '../types';
+import type { DataGenerationConfig, SystemParameters, PresetMode, AnalysisMode, AlertSettings } from '../types';
 
 interface SidebarProps {
   config: DataGenerationConfig;

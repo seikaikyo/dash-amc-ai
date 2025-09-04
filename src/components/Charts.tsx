@@ -1,6 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { AMCTestData, SystemParameters } from '../types';
+import type { AMCTestData, SystemParameters } from '../types';
 
 interface ChartsProps {
   data: AMCTestData[];

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AMCTestData, DataGenerationConfig, SystemParameters, PresetMode, AnalysisMode, AlertSettings } from './types';
+import type { AMCTestData, DataGenerationConfig, SystemParameters, PresetMode, AnalysisMode, AlertSettings } from './types';
 import { AMCDataGenerator } from './utils/dataGenerator';
 import { Sidebar } from './components/Sidebar';
 import { 
