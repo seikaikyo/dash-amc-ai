@@ -1,0 +1,350 @@
+/* 基礎樣式重設和字體設定 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 漸層背景工具類 */
+.gradient-blue {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+}
+
+/* 容器和佈局 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header {
+  color: white;
+  padding: 2rem 0;
+}
+
+.header-content {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.header h2 {
+  font-size: 1.25rem;
+  color: rgba(219, 234, 254, 1);
+  margin-bottom: 0.75rem;
+}
+
+.header-subtitle {
+  font-size: 1.125rem;
+  color: rgba(191, 219, 254, 1);
+  margin-bottom: 0.5rem;
+}
+
+.header-subtitle-en {
+  font-size: 0.875rem;
+  color: rgba(147, 197, 253, 1);
+  font-style: italic;
+}
+
+.header-company {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  border-radius: 0.5rem;
+}
+
+.header-company h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.header-company p {
+  font-size: 0.875rem;
+  color: rgba(219, 234, 254, 1);
+}
+
+.header-company p:last-child {
+  font-size: 0.75rem;
+  color: rgba(191, 219, 254, 1);
+  margin-top: 0.25rem;
+}
+
+/* 主要內容區 */
+.main-content {
+  flex: 1;
+  padding: 3rem 0;
+}
+
+.content-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.content-center {
+  text-align: center;
+}
+
+.icon-container {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 1.5rem;
+  background-color: rgba(239, 246, 255, 1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #3b82f6;
+}
+
+.main-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.main-subtitle {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+/* 特色網格 */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.feature-blue {
+  background-color: rgba(239, 246, 255, 1);
+}
+
+.feature-green {
+  background-color: rgba(240, 253, 244, 1);
+}
+
+.feature-purple {
+  background-color: rgba(250, 245, 255, 1);
+}
+
+.feature-title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.feature-blue .feature-title {
+  color: #1e3a8a;
+}
+
+.feature-green .feature-title {
+  color: #14532d;
+}
+
+.feature-purple .feature-title {
+  color: #581c87;
+}
+
+.feature-description {
+  font-size: 0.875rem;
+}
+
+.feature-blue .feature-description {
+  color: #1d4ed8;
+}
+
+.feature-green .feature-description {
+  color: #15803d;
+}
+
+.feature-purple .feature-description {
+  color: #7c2d12;
+}
+
+/* 技術標籤 */
+.tech-container {
+  background-color: rgba(249, 250, 251, 1);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+.tech-title {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.tech-tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.tag-blue {
+  background-color: rgba(219, 234, 254, 1);
+  color: #1e3a8a;
+}
+
+.tag-green {
+  background-color: rgba(220, 252, 231, 1);
+  color: #14532d;
+}
+
+.tag-purple {
+  background-color: rgba(243, 232, 255, 1);
+  color: #581c87;
+}
+
+.tag-cyan {
+  background-color: rgba(207, 250, 254, 1);
+  color: #155e75;
+}
+
+.tag-orange {
+  background-color: rgba(255, 237, 213, 1);
+  color: #9a3412;
+}
+
+.tag-red {
+  background-color: rgba(254, 226, 226, 1);
+  color: #991b1b;
+}
+
+/* Footer 樣式 */
+.footer {
+  color: white;
+  padding: 2rem 0;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.footer-brand {
+  color: rgba(196, 181, 253, 1);
+  margin-bottom: 0.5rem;
+}
+
+.footer-description {
+  font-size: 0.875rem;
+  color: rgba(196, 181, 253, 1);
+  margin-bottom: 1rem;
+}
+
+.footer-attribution {
+  background-color: rgba(109, 40, 217, 0.5);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-attribution p {
+  color: rgba(221, 214, 254, 1);
+  font-weight: 500;
+}
+
+.footer-link {
+  color: rgba(221, 214, 254, 1);
+  text-decoration: underline;
+  margin-left: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-copyright {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(139, 92, 246, 1);
+}
+
+.footer-copyright p {
+  font-size: 0.75rem;
+  color: rgba(196, 181, 253, 1);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .header h2 {
+    font-size: 1.125rem;
+  }
+  
+  .main-title {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 0.75rem;
+  }
+}

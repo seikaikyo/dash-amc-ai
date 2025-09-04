@@ -1,0 +1,56 @@
+{
+  "name": "dash-amc-ai-web",
+  "private": true,
+  "version": "2.0.0",
+  "description": "鈺祥企業 AMC 智能監控系統 - 從濾網到良率守門員：打造 AMC 晶圓良率防線的 AI 智能代理人",
+  "keywords": [
+    "AMC",
+    "半導體",
+    "監控系統",
+    "AI",
+    "鈺祥企業",
+    "晶圓良率",
+    "Vite",
+    "React",
+    "Dash AMC AI"
+  ],
+  "author": "鈺祥企業股份有限公司 | Yesiang Enterprise Co., Ltd.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.542.0",
+    "plotly.js-dist-min": "^3.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-plotly.js": "^2.6.0",
+    "tailwind-merge": "^3.3.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@types/lodash": "^4.17.20",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "@types/react-plotly.js": "^2.6.3",
+    "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.33.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "postcss": "^8.5.6",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.39.1",
+    "vite": "^7.1.2"
+  }
+}
